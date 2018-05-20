@@ -6,7 +6,5 @@
     "alexa-sdk": "^1.0.25",
     "tinyreq": "^3.4.0"
   },
-  "devDependencies": {
-    "gulp-minify": "^2.1.0"
-  }
+  "devDependencies": {}
 }

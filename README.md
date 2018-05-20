@@ -4,10 +4,11 @@ Careful when zipping this up to upload to aws lambda, if you let npm install too
 *Regarding zipping to aws lambda*, make sure that any changes to the node_module dir are added to the .gitignore. When you're ready to upload to aws lambda, delete your node_module dir, git stash the change, and only the modules you'll need to upload will be in the node_module dir. Zip this node_modules directory with any extra code from the project to the aws lambda service, you should be able to still edit inline. You can npm install on your local machine to reinstall all the modules.
 
 *Regarding appId.js*, add an appId.js file in the root folder then replace the **** with your skill app id. format below.
-	const APP_ID = '****';
-	module.exports = {
-		APP_ID: APP_ID
-	};
+
+const APP_ID = '****';
+module.exports = {
+	APP_ID: APP_ID
+};
 
 ChangeNotes
 	

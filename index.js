@@ -10,7 +10,7 @@ const handlers = {
         this.emit(':responseReady');
     },
     'questionIntent': function(){
-		console.log('started intent')
+		this.response.speak('started intent');
         const theNumber = this.event.request.intent.slots.number.value;
         var query = parseInt(theNumber);
         if(theNumber == undefined || isNaN(query)){
@@ -31,7 +31,7 @@ const handlers = {
         }).catch(err => {
             var json = JSON.parse(err);
             var err = json.data.status
-            if(err == undefined){ err = 'Bad error' };
+            if(err == undefined){ err = 'Bad error'; }
             this.response.speak('catch ' + err);
             this.emit(':responseReady');
         });

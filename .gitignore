@@ -1,4 +1,3 @@
-package*
 appId.js
 *.zip
 package-lock.json

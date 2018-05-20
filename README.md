@@ -10,7 +10,7 @@ module.exports = {
 	APP_ID: APP_ID
 };
 
-ChangeNotes
+##ChangeNotes
 	
 - added skill.json, this is the skill definition file used to define the interaction model for the skill
 - tryin out gulp minify and or webpack for lambdas

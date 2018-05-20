@@ -105,3 +105,15 @@ node_modules/uglify-es/
 node_modules/validate-npm-package-license/
 node_modules/vinyl/
 node_modules/xtend/
+node_modules/assured/package.json
+node_modules/debug/package.json
+node_modules/deffy/package.json
+node_modules/follow-redirects/package.json
+node_modules/function.name/package.json
+node_modules/ms/package.json
+node_modules/noop6/package.json
+node_modules/sliced/package.json
+node_modules/tinyreq/package.json
+node_modules/typpy/package.json
+node_modules/ul/package.json
+

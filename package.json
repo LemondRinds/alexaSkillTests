@@ -1,0 +1,12 @@
+{
+  "name": "alexa-skill-kit-sdk-factskill",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "tinyreq": "^3.4.0"
+  },
+  "devDependencies": {
+    "gulp-minify": "^2.1.0"
+  }
+}

@@ -3,6 +3,7 @@ const Alexa = require('alexa-sdk');
 const tinyreq = require("tinyreq");
 const AppId = require('appId');
 const SKILL_NAME = 'bobsuruncle';
+var spchOut = "";
 const handlers = {
     'LaunchRequest': function(){
         this.response.speak('Test Launch Request received.');
@@ -17,16 +18,16 @@ const handlers = {
             this.emit(":delegate");
         }
         this.response.speak(query);
-        if(query == 1){
-            HelloWorldA(this);
-        }
-        if(query == 2){
-            HelloWorldB(this); 
-        }
         var url = 'http://temp.cloudwatch.net/wp-json/wp/v2/users/me'
         tinyreq({url:url}).then(body => {
+            if(query == 1){
+                HelloWorldA(this);
+            }
+            if(query == 2){
+                HelloWorldB(this); 
+            }
             var json = JSON.parse(body);
-            this.response.speak('then ' + json.message);
+            this.response.speak(spchOut + ' then ' + json.message);
             this.emit(':responseReady');
         }).catch(err => {
             var json = JSON.parse(err);
@@ -35,7 +36,7 @@ const handlers = {
             this.response.speak('catch ' + err);
             this.emit(':responseReady');
         });
-},
+    },
     'AMAZON.HelpIntent': function(){
         const speechOutput = "Help.";
         const reprompt = "I mean, no.";
@@ -58,10 +59,10 @@ exports.handler = function(event, context, callback){
     alexa.execute();
 };
 function HelloWorldA(ths){
-    ths.response.speak('Did a.');
+    spchOut += 'Did a.';
 }
 function HelloWorldB(ths){
-    ths.response.speak('Did b.');
+    spchOut += 'Did b.';
 }
 /*function repGet(ths){
     reqOutHandle(ths, 'http://temp.cloudwatch.net/wp-json/wp/v2/users/me');

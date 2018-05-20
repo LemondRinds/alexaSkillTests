@@ -28,6 +28,8 @@ const handlers = {
             }
             var json = JSON.parse(body);
             this.response.speak(spchOut + ' then ' + json.message);
+			// audio player snip
+			//.audioPlayerPlay('REPLACE_ALL', 'https://feeds.soundcloud.com/stream/275202399-amazon-web-  services-306355661-amazon-web-services.mp3', '1', null, 0);
             this.emit(':responseReady');
         }).catch(err => {
             var json = JSON.parse(err);

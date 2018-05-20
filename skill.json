@@ -1,0 +1,85 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "e.v.p.",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "questionIntent",
+                    "slots": [
+                        {
+                            "name": "number",
+                            "type": "AMAZON.NUMBER",
+                            "samples": [
+                                " {number}"
+                            ]
+                        }
+                    ],
+                    "samples": [
+                        "do {number}",
+                        "do",
+                        "do task",
+                        "do task {number}"
+                    ]
+                }
+            ],
+            "types": []
+        },
+        "dialog": {
+            "intents": [
+                {
+                    "name": "questionIntent",
+                    "confirmationRequired": false,
+                    "prompts": {},
+                    "slots": [
+                        {
+                            "name": "number",
+                            "type": "AMAZON.NUMBER",
+                            "confirmationRequired": true,
+                            "elicitationRequired": true,
+                            "prompts": {
+                                "confirmation": "Confirm.Slot.1357356433485.1453279347431",
+                                "elicitation": "Elicit.Slot.1357356433485.1453279347431"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "prompts": [
+            {
+                "id": "Elicit.Slot.1357356433485.1453279347431",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "i need a number"
+                    }
+                ]
+            },
+            {
+                "id": "Confirm.Slot.1357356433485.1453279347431",
+                "variations": [
+                    {
+                        "type": "PlainText",
+                        "value": "you chose {number} , right?"
+                    }
+                ]
+            }
+        ]
+    }
+}

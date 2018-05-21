@@ -4,9 +4,8 @@
   "private": true,
   "dependencies": {
     "alexa-sdk": "^1.0.25",
+    "easysoap": "^2.0.0",
     "tinyreq": "^3.4.0"
   },
-  "devDependencies": {
-    "gulp-minify": "^2.1.0"
-  }
+  "devDependencies": {}
 }

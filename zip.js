@@ -1,5 +1,5 @@
 var exec = require('child_process').exec,
-spawn = require('child_process').spawn,
+spawn = require('child_process').spawnSync,
     tsk = {
 		mkZip: [	
 			'rm -rf zipTmp',
@@ -17,7 +17,17 @@ function doCmd(pindx){
 	console.log(tsk.mkZip[pindx]);
 	console.log('wait...');
 	if(tsk.mkZip[pindx].startsWith('zip')){
-		spawn('zip',['-r', 'alexa.zip', 'zipTmp']);
+		var cmd = spawn('zip',['-r', 'alexa.zip', 'zipTmp']);
+		cmd.stdout.on('data', (data) => {
+		  console.log('stdout: ' + data.toString());
+		});
+		cmd.stderr.on('data', (data) => {
+		  console.log('stderr: ' + data.toString());
+		});
+		cmd.on('exit', (code) => {
+		  console.log('child process exited with code ' + code.toString());
+		});
+		console.log('hack zip complete');
 	}else{
 		exec(tsk.mkZip[pindx], (err, stdout, stderr) => {
 			if(err){

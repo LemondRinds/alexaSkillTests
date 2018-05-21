@@ -14,30 +14,27 @@ const handlers = {
 		this.response.speak('started intent');
         const theNumber = this.event.request.intent.slots.number.value;
         var query = parseInt(theNumber);
+		var spchOut = '';
         if(theNumber == undefined || isNaN(query)){
             this.emit(":delegate");
         }
-        this.response.speak(query);
-        var url = 'http://temp.cloudwatch.net/wp-json/wp/v2/users/me'
-        tinyreq({url:url}).then(body => {
-            if(query == 1){
-                HelloWorldA(this);
-            }
-            if(query == 2){
-                HelloWorldB(this); 
-            }
-            var json = JSON.parse(body);
-            this.response.speak(spchOut + ' then ' + json.message);
-			// audio player snip, add a secret rick roll intent to everything
-			//.audioPlayerPlay('REPLACE_ALL', 'https://feeds.soundcloud.com/stream/275202399-amazon-web-  services-306355661-amazon-web-services.mp3', '1', null, 0);
-            this.emit(':responseReady');
-        }).catch(err => {
-            var json = JSON.parse(err);
-            var err = json.data.status
-            if(err == undefined){ err = 'Bad error'; }
-            this.response.speak('catch ' + err);
-            this.emit(':responseReady');
-        });
+        switch(query){
+			case 1:
+				HelloWorldA(this);
+				break;
+			case 2:
+				HelloWorldB(this); 
+				break;
+			case 3:
+				testRest(this);
+				break;
+			case 4:
+				testSoap(this);
+				break;
+			default:
+				this.response.speak(query + ' not an option.').reprompt('i need a number');
+				this.emit(':responseReady');
+        }
     },
     'AMAZON.HelpIntent': function(){
         const speechOutput = "Help.";
@@ -61,10 +58,52 @@ exports.handler = function(event, context, callback){
     alexa.execute();
 };
 function HelloWorldA(ths){
-    spchOut += 'Did a.';
+    ths.response.speak('Did a.');
+    ths.emit(':responseReady');
 }
 function HelloWorldB(ths){
-    spchOut += 'Did b.';
+    ths.response.speak('Did b.');
+    ths.emit(':responseReady');
+}
+function testRest(ths){
+	var url = 'http://temp.cloudwatch.net/wp-json/wp/v2/users/me'
+	tinyreq({url:url}).then(body => {
+		var json = JSON.parse(body);
+		ths.response.speak(spchOut + ' then ' + json.message);
+		// audio player snip, add a secret rick roll intent to everything
+		//.audioPlayerPlay('REPLACE_ALL', 'https://feeds.soundcloud.com/stream/275202399-amazon-web-  services-306355661-amazon-web-services.mp3', '1', null, 0);
+		ths.emit(':responseReady');
+	}).catch(err => {
+		var json = JSON.parse(err);
+		var err = json.data.status
+		if(err == undefined){ err = 'Bad error'; }
+		ths.response.speak('catch ' + err);
+		ths.emit(':responseReady');
+	});
+}
+function testSoap(ths){
+	const EasySoap = require('easysoap');
+	const soapHdr = {
+		host               : 'http://www.thomas-bayer.com',
+		path               : '/axis2/services/BLZService',
+		wsdl               : '/axis2/services/BLZService?wsdl',
+		headers: [{
+				'namespace': 'http://thomas-bayer.com/blz/'
+		   }],
+		rejectUnauthorized : false
+	}
+	const soapOpts = {
+		secure : false
+	}
+	const soapClient = EasySoap(soapHdr, soapOpts);
+	soapClient.getAllFunctions()
+	   .then((functionArray) => { 
+			ths.response.speak('fisrt function from wsdl ' + functionArray); 
+			ths.emit(':responseReady'); 
+		}).catch((err) => { 
+			ths.response.speak('err for soap ' + err); 
+			ths.emit(':responseReady'); 
+		});
 }
 /*function repGet(ths){
     reqOutHandle(ths, 'http://temp.cloudwatch.net/wp-json/wp/v2/users/me');
